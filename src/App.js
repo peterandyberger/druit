@@ -2,7 +2,8 @@ import React, {Fragment} from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "../src/App.css";
-import {MAINPAGE} from "./pages/mainPage";
+import MAINPAGE from "./pages/mainPage";
+import { addTypes, addNames } from "./redux/actions";
 
 class App extends React.Component {
 	render() {
@@ -22,14 +23,15 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		visModal: state.visModal,
-		flights: state.flights,
+		types: state.types,
+    names: state.names,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		// addFlights: (payload) => dispatch(addFlights(payload)),
+		addTypes: (payload) => dispatch(addTypes(payload)),
+    addNames: (payload) => dispatch(addNames(payload)),
 	};
 };
 
