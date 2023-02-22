@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# druit
+Pokemon challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Missing from the solution:
 
-## Available Scripts
+Search and Checkbox functionality, lack of time
 
-In the project directory, you can run:
+What I would have done other than that
 
-### `npm start`
+- Component optimalization, removing every logic from the components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+React, Next Js
+- During your work use the https://pokeapi.co/ REST API.
+- List the different types of pokemons on the main screen. ( Use a
+dropdown menu or picker )
+- When one of the types is selected list all the pokemon names which are
+assigned to this type. Include a searchbar on this screen, to able to search
+pokemons by name.
+Upon selection of a pokemon, navigate to a profile card where you show
+some details about the selected pokemon.
+The detailed profile card needs to include: a picture of the pokemon, the
+name, weight, height, not hidden abilites.
+On the same screen implement a 'catch' button, on click, the pokemon
+should
+be catched. You will need to mark the catched pokemons on the list.
+(exmaple: green border, whatever...). When a pokemon is catched, the
+button should turn to 'release', if you want to release them back to the wild.
+Implement checkbox next to the searchbar to list only your catched
+pokemons.
+Add some navigation to go back on the webpage, and do not fetch the data
+again
+Use a loader / spinner while fetching data.
+Requirements:
+- ReactJS or NextJs with Typescript and Redux or any kind of state
+management.
+- For every component decide wisely if you need a class based component
+with
+local states, or a functional component with hooks.
+- Usage of ES6
+- Easy to read, DRY ( Do Not Repeat Yourself ) and well structured
+component
 
-### `npm test`
+based code.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- You can use any css library of your like, or you can write the whole on
+your
+own.
+- Please use GIT as version control, and share the repository with us.
