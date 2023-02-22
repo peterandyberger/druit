@@ -3,6 +3,7 @@ export const ADD_NAMES = "ADD_NAMES";
 export const SHOW_PDP = "SHOW_PDP";
 export const SHOW_PLP = "SHOW_PLP";
 export const STORE_POKEMON = "STORE_POKEMON";
+export const STORE_FILTERED_NAMES = "STORE_FILTERED_NAMES";
 
 export function addTypes(data) {
   return { type: ADD_TYPES, data: data };
@@ -23,3 +24,7 @@ export function showPLP(data) {
 export function storePokemon(data) {
     return { type: STORE_POKEMON, data: data };
   }
+
+  export function storeFilteredNames(data) {
+    return { type: STORE_FILTERED_NAMES, data: data };
+  }  

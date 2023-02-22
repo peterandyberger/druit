@@ -12,7 +12,7 @@ import {
 import pokemonApi from "../../api/index";
 
 const Plp = (props) => {
-  const { names } = props;
+  const { names, filtered_names } = props;
 
   const [catched, setCatched] = useState();
 
@@ -43,18 +43,16 @@ const Plp = (props) => {
   const checkCatched = (url) => {
     const parts = url.split('/');
     const id = parts[parts.length - 2];
-    console.log(catched, catched?.includes(parseInt(id)), parseInt(id));
     return catched?.includes(parseInt(id));
   };
 
   return (
     <>
       {" "}
-      {catched && (
+      {catched &&  (
         <ListGroup>
-          {names?.pokemon?.map((item, index) => (
+          {(filtered_names && filtered_names?.length > 0 ? filtered_names : names)?.pokemon?.map((item, index)  => (
             <ListGroup.Item
-             //className={catched.includes((item.pokemon.url.split('/')[item.pokemon.url.split('/').length -2])) ? "green" : "red"}
              className={checkCatched(item.pokemon.url) ? "green" : "red"}
               key={index}
               onClick={() => handleClick(item.pokemon.name)}
@@ -75,6 +73,7 @@ const mapStateToProps = (state) => {
     pokemon: state.pokemon,
     pdpON: state.pdpON,
     plpON: state.plpON,
+    filtered_names: state.filtered_names,
   };
 };
 

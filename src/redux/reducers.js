@@ -4,6 +4,7 @@ import {
   SHOW_PDP,
   SHOW_PLP,
   STORE_POKEMON,
+  STORE_FILTERED_NAMES,
 } from "./actions";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   pdpON: false,
   plpON: false,
   pokemon: [],
+  filtered_names: [],
 };
 
 function appReducer(state = initialState, action) {
@@ -40,6 +42,11 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         pokemon: action.data,
+      };
+    case STORE_FILTERED_NAMES:
+      return {
+        ...state,
+        filtered_names: action.data,
       };
 
     default:

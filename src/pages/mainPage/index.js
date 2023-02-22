@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header";
-import { addTypes, addNames, showPDP, showPLP } from "../../redux/actions";
+import {
+  addTypes,
+  addNames,
+  showPDP,
+  showPLP,
+  storeFilteredNames,
+} from "../../redux/actions";
 import { connect } from "react-redux";
 import Plp from "../../components/plp";
 import pokemonApi from "../../api/index";
@@ -10,29 +16,31 @@ const MAINPAGE = (props) => {
   const [selectedType, setSelectedType] = useState();
   const [spinner, setSpinner] = useState(true);
   const [catched, setCatched] = useState();
+  const [filteredList, setFilteredList] = useState();
 
   const handleSelectType = (type) => {
     setSelectedType(type);
     createList(type);
-  };
-
-  const getTypes = async () => {
-    const response = await pokemonApi.get("type", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    props.addTypes(response.data.results);
+    props.showPDP(false);
   };
 
   useEffect(() => {
+    const getTypes = async () => {
+      const response = await pokemonApi.get("type", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      props.addTypes(response.data.results);
+    };
+  
     getTypes();
     setSpinner(false);
   }, []);
+  
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("selectedItem")) || [];
-    console.log(items);
     setCatched(items);
 
     const handleStorageChange = () => {
@@ -69,7 +77,6 @@ const MAINPAGE = (props) => {
 
   const recordCatch = () => {
     var items = JSON.parse(localStorage.getItem("selectedItem")) || [];
-    console.log(items);
     !items?.includes(props.pokemon.id) && items.push(props.pokemon.id);
     localStorage.setItem("selectedItem", JSON.stringify(items));
     window.dispatchEvent(new Event("storage"));
@@ -77,7 +84,6 @@ const MAINPAGE = (props) => {
 
   const removeCatch = () => {
     var items = JSON.parse(localStorage.getItem("selectedItem")) || [];
-    console.log(items);
     const index = items.indexOf(props.pokemon.id);
     items.splice(index, 1);
     localStorage.setItem("selectedItem", JSON.stringify(items));
@@ -85,8 +91,17 @@ const MAINPAGE = (props) => {
   };
 
   const checkCatched = (id) => {
-    console.log(catched, catched?.includes(parseInt(id)), parseInt(id));
     return catched?.includes(parseInt(id));
+  };
+
+  const filterNames = (e) => {
+    props.names &&
+      props.storeFilteredNames(
+        props.names.pokemon.filter(
+          (name) =>
+            name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
+        )
+      );
   };
 
   return (
@@ -99,30 +114,40 @@ const MAINPAGE = (props) => {
         </div>
       )}
       <Header
-        title={selectedType ? selectedType : "Select a Pokemon"}
+        title={selectedType ? selectedType : "Select a Pokemon type"}
         handleSelectType={(type) => handleSelectType(type)}
         types={props.types}
+        //onChange={(e) => filterNames(e)}
       />
       {props.pokemon && props.pdpON && catched && (
-        <Pdp
-          button_className={
-            checkCatched(props.pokemon.id)
-              ? "btn btn-success"
-              : "btn btn-danger"
-          }
-          button_text={checkCatched(props.pokemon.id) ? "Release!" : "Catch!"}
-          imgindex={props.pokemon.id}
-          name={props.pokemon.name}
-          weight={props.pokemon.weight}
-          height={props.pokemon.height}
-          abilities={props.pokemon.abilities ? props.pokemon.abilities : null}
-          onClick={() => {
-            closeCard();
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
           }}
-          catched={() => {
-            checkCatched(props.pokemon.id) ? removeCatch() : recordCatch();
-          }}
-        ></Pdp>
+        >
+          <Pdp
+            button_className={
+              checkCatched(props.pokemon.id)
+                ? "btn btn-success"
+                : "btn btn-danger"
+            }
+            button_text={checkCatched(props.pokemon.id) ? "Release!" : "Catch!"}
+            imgindex={props.pokemon.id}
+            name={props.pokemon.name}
+            weight={props.pokemon.weight}
+            height={props.pokemon.height}
+            abilities={props.pokemon.abilities ? props.pokemon.abilities : null}
+            onClick={() => {
+              closeCard();
+            }}
+            catched={() => {
+              checkCatched(props.pokemon.id) ? removeCatch() : recordCatch();
+            }}
+          ></Pdp>
+        </div>
       )}
       {props.plpON && <Plp></Plp>}
     </>
@@ -136,6 +161,7 @@ const mapStateToProps = (state) => {
     pdpON: state.pdpON,
     plpON: state.plpON,
     pokemon: state.pokemon,
+    filtered_names: state.filtered_names,
   };
 };
 
@@ -145,6 +171,7 @@ const mapDispatchToProps = (dispatch) => {
     addNames: (payload) => dispatch(addNames(payload)),
     showPDP: (payload) => dispatch(showPDP(payload)),
     showPLP: (payload) => dispatch(showPLP(payload)),
+    storeFilteredNames: (payload) => dispatch(storeFilteredNames(payload)),
   };
 };
 
