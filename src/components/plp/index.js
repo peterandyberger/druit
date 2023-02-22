@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { connect } from "react-redux";
-import './index.css'
+import './index.css';
 import {
   addTypes,
   addNames,
@@ -54,7 +54,7 @@ const Plp = (props) => {
         <ListGroup>
           {names?.pokemon?.map((item, index) => (
             <ListGroup.Item
-             // className={catched.includes((item.pokemon.url.split('/')[item.pokemon.url.split('/').length -2])) ? "green" : "red"}
+             //className={catched.includes((item.pokemon.url.split('/')[item.pokemon.url.split('/').length -2])) ? "green" : "red"}
              className={checkCatched(item.pokemon.url) ? "green" : "red"}
               key={index}
               onClick={() => handleClick(item.pokemon.name)}

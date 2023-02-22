@@ -9,6 +9,7 @@ import Pdp from "../../components/pdp";
 const MAINPAGE = (props) => {
   const [selectedType, setSelectedType] = useState();
   const [spinner, setSpinner] = useState(true);
+  const [catched, setCatched] = useState();
 
   const handleSelectType = (type) => {
     setSelectedType(type);
@@ -27,6 +28,24 @@ const MAINPAGE = (props) => {
   useEffect(() => {
     getTypes();
     setSpinner(false);
+  }, []);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("selectedItem")) || [];
+    console.log(items);
+    setCatched(items);
+
+    const handleStorageChange = () => {
+      const updatedItems =
+        JSON.parse(localStorage.getItem("selectedItem")) || [];
+      setCatched(updatedItems);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const createList = async (type) => {
@@ -53,7 +72,23 @@ const MAINPAGE = (props) => {
     console.log(items);
     !items?.includes(props.pokemon.id) && items.push(props.pokemon.id);
     localStorage.setItem("selectedItem", JSON.stringify(items));
+    window.dispatchEvent(new Event("storage"));
   };
+
+  const removeCatch = () => {
+    var items = JSON.parse(localStorage.getItem("selectedItem")) || [];
+    console.log(items);
+    const index = items.indexOf(props.pokemon.id);
+    items.splice(index, 1);
+    localStorage.setItem("selectedItem", JSON.stringify(items));
+    window.dispatchEvent(new Event("storage"));
+  };
+
+  const checkCatched = (id) => {
+    console.log(catched, catched?.includes(parseInt(id)), parseInt(id));
+    return catched?.includes(parseInt(id));
+  };
+
   return (
     <>
       {spinner && (
@@ -68,9 +103,16 @@ const MAINPAGE = (props) => {
         handleSelectType={(type) => handleSelectType(type)}
         types={props.types}
       />
-      {props.pokemon && props.pdpON && (
+      {props.pokemon && props.pdpON && catched && (
         <Pdp
+          button_className={
+            checkCatched(props.pokemon.id)
+              ? "btn btn-success"
+              : "btn btn-danger"
+          }
+          button_text={checkCatched(props.pokemon.id) ? "Release!" : "Catch!"}
           imgindex={props.pokemon.id}
+          name={props.pokemon.name}
           weight={props.pokemon.weight}
           height={props.pokemon.height}
           abilities={props.pokemon.abilities ? props.pokemon.abilities : null}
@@ -78,7 +120,7 @@ const MAINPAGE = (props) => {
             closeCard();
           }}
           catched={() => {
-            recordCatch();
+            checkCatched(props.pokemon.id) ? removeCatch() : recordCatch();
           }}
         ></Pdp>
       )}

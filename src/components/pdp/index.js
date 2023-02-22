@@ -4,7 +4,17 @@ import { addTypes } from "../../redux/actions";
 import { Card, Button } from "react-bootstrap";
 
 const Pdp = (props) => {
-  const { name, weight, height, onClick, catched, abilities, sprites } = props;
+  const {
+    name,
+    weight,
+    height,
+    onClick,
+    catched,
+    button_className,
+    button_text,
+    abilities,
+    sprites,
+  } = props;
 
   const imgUrl =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
@@ -12,8 +22,13 @@ const Pdp = (props) => {
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Header className="d-flex justify-content-between align-items-center">
-      <div></div>
-        <button type="button" onClick={onClick} class="btn-close" aria-label="Close"></button>
+        <div></div>
+        <button
+          type="button"
+          onClick={onClick}
+          class="btn-close"
+          aria-label="Close"
+        ></button>
       </Card.Header>
       <Card.Img variant="top" src={imgUrl + props.imgindex + ".png"} />
       <Card.Body>
@@ -22,12 +37,16 @@ const Pdp = (props) => {
         <Card.Text>Height: {height}</Card.Text>
         <Card.Text>
           Abilities:{" "}
-          {abilities ? abilities
-            .filter((ability) => !ability.is_hidden)
-            .map((ability) => ability.ability.name)
-            .join(", ") : "none"}
+          {abilities
+            ? abilities
+                .filter((ability) => !ability.is_hidden)
+                .map((ability) => ability.ability.name)
+                .join(", ")
+            : "none"}
         </Card.Text>
-        <button onClick={catched} type="button" className="btn btn-danger">Catch!</button>
+        <button onClick={catched} type="button" className={button_className}>
+          {button_text}
+        </button>
       </Card.Body>
     </Card>
   );

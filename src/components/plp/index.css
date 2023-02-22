@@ -1,4 +1,4 @@
-.green {
+.green.list-group-item {
     background-color: green;
     color: white;
   }
