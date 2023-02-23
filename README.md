@@ -5,9 +5,10 @@ Missing from the solution:
 
 Search and Checkbox functionality, lack of time
 
-What I would have done other than that
+Would have done:
 
 - Component optimalization, removing every logic from the components
+- I missed the request for typescript code so I did not do that
 
 
 React, Next Js
