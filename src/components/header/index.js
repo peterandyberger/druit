@@ -25,10 +25,10 @@ const DropdownComponent = (props) => {
         </DropdownButton>
       </div>
       <div className="col">
-        <Form.Control type="text" onChange = {props.onChange} placeholder="Search" className="w-100" />
+        <Form.Control type="text" onChange={props.onChange} placeholder="Search" className="w-100" />
       </div>
       <div>
-        <input className="col" type="checkbox" onChange={props.onChange} />
+        <input className="col" type="checkbox" onChange={props.onChangeCheckBox} />
         <label>Show only green items </label>
       </div>
     </div>
@@ -41,12 +41,14 @@ const mapStateToProps = (state) => {
   return {
     types: state.types,
     plpOn: state.plpOn,
+    filtered_names: state.filtered_names,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addTypes: (payload) => dispatch(addTypes(payload)),
+    storeFilteredNames: (payload) => dispatch(addTypes(payload)),
   };
 };
 

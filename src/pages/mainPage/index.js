@@ -95,12 +95,11 @@ const MAINPAGE = (props) => {
   };
 
   const filterNames = (e) => {
-    props.names &&
+      props.names &&
       props.storeFilteredNames(
-        props.names.pokemon.filter(
-          (name) =>
-            name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
-        )
+          props.names?.pokemon?.filter((name) => {
+            return name.pokemon.name.toLowerCase().includes(e.target.value.toLowerCase());
+          })
       );
   };
 
@@ -117,7 +116,8 @@ const MAINPAGE = (props) => {
         title={selectedType ? selectedType : "Select a Pokemon type"}
         handleSelectType={(type) => handleSelectType(type)}
         types={props.types}
-        //onChange={(e) => filterNames(e)}
+        onChange={(e) => filterNames(e)}
+        onChangeCheckBox={()=> {console.log("checked")}}
       />
       {props.pokemon && props.pdpON && catched && (
         <div

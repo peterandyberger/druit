@@ -7,7 +7,7 @@ import {
   addNames,
   showPDP,
   showPLP,
-  storePokemon,
+  storePokemon, storeFilteredNames,
 } from "../../redux/actions";
 import pokemonApi from "../../api/index";
 
@@ -51,7 +51,7 @@ const Plp = (props) => {
       {" "}
       {catched &&  (
         <ListGroup>
-          {(filtered_names && filtered_names?.length > 0 ? filtered_names : names)?.pokemon?.map((item, index)  => (
+          {(filtered_names && filtered_names?.length > 0 ? filtered_names : names.pokemon).map((item, index)  => (
             <ListGroup.Item
              className={checkCatched(item.pokemon.url) ? "green" : "red"}
               key={index}
@@ -84,6 +84,7 @@ const mapDispatchToProps = (dispatch) => {
     showPDP: (payload) => dispatch(showPDP(payload)),
     showPLP: (payload) => dispatch(showPLP(payload)),
     storePokemon: (payload) => dispatch(storePokemon(payload)),
+    storeFilteredNames: (payload) => dispatch(storeFilteredNames(payload)),
   };
 };
 
