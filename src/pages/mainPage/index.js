@@ -17,6 +17,7 @@ const MAINPAGE = (props) => {
   const [spinner, setSpinner] = useState(true);
   const [catched, setCatched] = useState();
   const [filteredList, setFilteredList] = useState();
+  const [greenID, setGreenID] = useState(false)
 
   const handleSelectType = (type) => {
     setSelectedType(type);
@@ -103,6 +104,7 @@ const MAINPAGE = (props) => {
       );
   };
 
+  
   return (
     <>
       {spinner && (
@@ -117,7 +119,7 @@ const MAINPAGE = (props) => {
         handleSelectType={(type) => handleSelectType(type)}
         types={props.types}
         onChange={(e) => filterNames(e)}
-        onChangeCheckBox={()=> {console.log("checked")}}
+        onChangeCheckBox={()=> {setGreenID(!greenID)}}
       />
       {props.pokemon && props.pdpON && catched && (
         <div
@@ -149,7 +151,7 @@ const MAINPAGE = (props) => {
           ></Pdp>
         </div>
       )}
-      {props.plpON && <Plp></Plp>}
+      {props.plpON && <Plp id={greenID.toString()} className={ greenID ? 'noShow' : ''}></Plp>}
     </>
   );
 };

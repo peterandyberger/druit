@@ -1,4 +1,11 @@
 .green.list-group-item {
-    background-color: green;
-    color: white;
-  }
+  background-color: green;
+  color: white;
+}
+.red.noShow.list-group-item {
+  display: none;
+}
+
+#justGreen {
+  display: none;
+}

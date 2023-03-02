@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { connect } from "react-redux";
-import './index.css';
+import "./index.css";
 import {
   addTypes,
   addNames,
   showPDP,
   showPLP,
-  storePokemon, storeFilteredNames,
+  storePokemon,
+  storeFilteredNames,
 } from "../../redux/actions";
 import pokemonApi from "../../api/index";
 
@@ -41,7 +42,7 @@ const Plp = (props) => {
   };
 
   const checkCatched = (url) => {
-    const parts = url.split('/');
+    const parts = url.split("/");
     const id = parts[parts.length - 2];
     return catched?.includes(parseInt(id));
   };
@@ -49,13 +50,17 @@ const Plp = (props) => {
   return (
     <>
       {" "}
-      {catched &&  (
+      {catched && (
         <ListGroup>
-          {(filtered_names && filtered_names?.length > 0 ? filtered_names : names.pokemon).map((item, index)  => (
+          {(filtered_names && filtered_names?.length > 0
+            ? filtered_names
+            : names.pokemon
+          ).map((item, index) => (
             <ListGroup.Item
-             className={checkCatched(item.pokemon.url) ? "green" : "red"}
+              className={props.className ? checkCatched(item.pokemon.url) ? "green"  : "red " + props.className : checkCatched(item.pokemon.url) ? "green"  : "red" }
               key={index}
               onClick={() => handleClick(item.pokemon.name)}
+              id={props.id}
             >
               <p>{item.pokemon.name}</p>
             </ListGroup.Item>
